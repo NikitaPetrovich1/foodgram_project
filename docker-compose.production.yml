@@ -1,0 +1,44 @@
+version: '3.3'
+
+volumes:
+  pg_data:
+  static_value:
+  media_value:
+
+services:
+  db:
+    image: postgres:13
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+
+  backend:
+    image: nikitapetrovich1/foodgram_backend
+    restart: always
+    volumes:
+      - static_value:/app/backend_static/
+      - media_value:/app/backend_media/
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  frontend:
+    image: nikitapetrovich1/foodgram_frontend
+    volumes:
+      - ./frontend/:/app/result_build/
+
+  gateway:
+    image: nikitapetrovich1/foodgram_gateway
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf
+      - ./frontend/build:/usr/share/nginx/html/
+      - ./docs/:/usr/share/nginx/html/api/docs/
+      - static_value:/var/html/backend_static/
+      - media_value:/var/html/backend_media/
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - 8000:80
