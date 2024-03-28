@@ -3,7 +3,6 @@ import base64
 import webcolors
 from rest_framework import serializers
 from django.core.files.base import ContentFile
-from django.db import transaction
 
 from recipes.models import (
     Tag, Ingredient, Recipe, IngredientsInRecipe, Favorite, ShoppingCart
@@ -103,9 +102,9 @@ class RecipeReadSerializer(serializers.ModelSerializer):
 
     def get_in(self, obj, model):
         request = self.context.get('request')
-        if request is None or request.user.is_anonymous:
-            return False
-        return model.objects.filter(user=request.user, recipe=obj).exists()
+        return not request or (not request.user.is_anonymous
+                               and model.objects.filter(user=request.user,
+                                                        recipe=obj).exists())
 
     def get_is_favorited(self, obj):
         return self.get_in(obj, Favorite)
@@ -138,7 +137,6 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
                 amount=amount
             )
 
-    @transaction.atomic
     def create(self, validated_data):
         ingredients = validated_data.pop('ingredients')
         tags = validated_data.pop('tags')
@@ -148,7 +146,6 @@ class RecipeCreateSerializer(serializers.ModelSerializer):
         self.create_ingredients(ingredients, recipe)
         return recipe
 
-    @transaction.atomic
     def update(self, instance, validated_data):
         ingredients = validated_data.pop('ingredients')
         tags = validated_data.pop('tags')

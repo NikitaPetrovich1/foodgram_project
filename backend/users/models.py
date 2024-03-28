@@ -1,11 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from .constants import MAX_LENGTH_FOR_EMAIL
+
 
 class User(AbstractUser):
     email = models.EmailField(
         unique=True,
-        max_length=254,
+        max_length=MAX_LENGTH_FOR_EMAIL,
         verbose_name='Email',
     )
 

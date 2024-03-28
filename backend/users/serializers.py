@@ -2,12 +2,19 @@ from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers
 
 from .models import User
+from .constants import FIRST_NAME_LENGTH, LAST_NAME_LENGTH
 from subscriptions.models import Subscription
 
 
 class CustomUserCreateSerializer(UserCreateSerializer):
-    first_name = serializers.CharField(max_length=150, required=True)
-    last_name = serializers.CharField(max_length=150, required=True)
+    first_name = serializers.CharField(
+        max_length=FIRST_NAME_LENGTH,
+        required=True
+    )
+    last_name = serializers.CharField(
+        max_length=LAST_NAME_LENGTH,
+        required=True
+    )
     email = serializers.EmailField(required=True)
 
     class Meta:
