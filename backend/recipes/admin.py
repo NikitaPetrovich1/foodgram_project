@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.core.exceptions import ValidationError
+
 
 from .models import (
     Tag, Ingredient, Recipe, IngredientsInRecipe, Favorite, ShoppingCart
@@ -52,6 +54,11 @@ class RecipeAdmin(admin.ModelAdmin):
     )
     list_filter = ('author', 'name', 'tags')
     readonly_fields = ('is_favorited',)
+
+    def clean(self):
+        super().clean()
+        if not self.instance.ingredients:
+            raise ValidationError('Поле не может быть пустым')
 
     def is_favorited(self, instance):
         return instance.users_favorites.count()

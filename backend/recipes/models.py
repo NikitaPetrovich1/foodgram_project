@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
 from users.models import User
 from .constants import (
     LIMIT_FOR_NAME, SHORT_LIMIT_LENGTH, LENGTH_FOR_DICSRIPTION,
@@ -121,17 +122,17 @@ class IngredientsInRecipe(models.Model):
         Ingredient,
         on_delete=models.CASCADE,
         related_name='ingredients_list',
-        verbose_name='Ингредиенты'
+        verbose_name='Ингредиенты',
     )
     amount = models.PositiveSmallIntegerField(
         'Количество',
         validators=[
             MinValueValidator(
-                MIN_COOKING_TIME,
+                MIN_AMOUNT_INGREDIENT,
                 f'Минимальное количество: {MIN_AMOUNT_INGREDIENT}'
             ),
             MaxValueValidator(
-                MAX_COOCING_TIME,
+                MAX_AMOUNT_INGREDIENT,
                 f'Максимальное количество: {MAX_AMOUNT_INGREDIENT}'
             ),
         ]
