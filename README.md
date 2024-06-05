@@ -1,17 +1,4 @@
 # Foodgram_project_react
-Дипломная работа Яндекс Практикум - Foodgram.
-
-![Workflow Badge](https://github.com/wtfucka/foodgram-project-react/actions/workflows/main.yml/badge.svg?branch=master&event=push)
-## Автор проекта
-
-[me](https://github.com/wtfucka)
-
-## Для ревью:
-    адрес сайта: https://foodgram.tech
-    админка: https://foodgram.tech/admin/
-    апи: https://foodgram.tech/api/
-    логин: review@test.ru
-    пароль: 1234567l
 
 ## Назначение
 
@@ -38,7 +25,7 @@
 Клонировать репозиторий:
 
 ```
-git clone git@github.com:wtfucka/foodgram-project-react.git
+git clone git@github.com:NikitaPetrovich1/foodgram_project
 ```
 
 Перейти в него в командной строке:
