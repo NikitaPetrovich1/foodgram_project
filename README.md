@@ -1,36 +1,70 @@
-# Foodgram - продуктовый помощник
+# Foodgram_project_react
+Дипломная работа Яндекс Практикум - Foodgram.
 
-## Описание проекта
-Онлайн-сервис Foodgram («Продуктовый помощник») - сервис для публикции любимых рецептов. Пользователи могут публиковать рецепты, подписываться на публикации других пользователей, добавлять понравившиеся рецепты в «Избранное», а также удобно скачивать список необходимых ингредиентов для приготовления желаемых блюд в формате .txt.
+![Workflow Badge](https://github.com/wtfucka/foodgram-project-react/actions/workflows/main.yml/badge.svg?branch=master&event=push)
+## Автор проекта
+
+[me](https://github.com/wtfucka)
+
+## Для ревью:
+    адрес сайта: https://foodgram.tech
+    админка: https://foodgram.tech/admin/
+    апи: https://foodgram.tech/api/
+    логин: review@test.ru
+    пароль: 1234567l
+
+## Назначение
+
+Проект создан для размещения размещения различных рецептов пользователями. Позволяет добавлять рецепты в избранное, подписываться на других пользователей, создавать свои рецепты и даже скачивать список необходимых покупок для приготовления по рецепту.
+
+## Стек проекта
+
+- Языки программирования
+    - *Backend* [Python 3.11.7](https://www.python.org/downloads/release/python-3117/)
+    - *Frontend* [NodeJS 13.12](https://nodejs.org/en/blog/release/v13.12.0)
+
+- Фреймворки
+    - [Django 4.2.11](https://docs.djangoproject.com/en/5.0/releases/4.2.11/)
+    - [DRF 3.14](https://www.django-rest-framework.org/community/3.14-announcement/)
+    - [React 17.0.1](https://github.com/facebook/react/blob/main/CHANGELOG.md#1701-october-22-2020)
+
+- СУБД
+    - [PostgreSQL 16](https://www.postgresql.org/about/news/postgresql-16-released-2715/)
 
 
-## Основные модули
-- Recipes - модуль предостовляющий функционал для создания и редактирования рецептов, добавления(удаления) рецептов в(из) избранное(ого) и(или) в список покупок для формирования и возможности скачать список необходимых ингредиентов для приготовления блюд.
-- Subscriptions - позволяет подписываться(отписываться) на(от) других пользователей для удобного отслеживания их опубликованных рецептов.
 
-## Инструкция по загрузке и запуску проекта:
-Клонируйте репозиторий:
-```
-git clone https://github.com/NikitaPetrovich1/foodgram-project-react
-```
-Создайте файл .env и заполните его необходимыми данными по примеру файла .env.example.
+## Как запустить проект локально:
 
-Замените строки "image:..." в файле docker-compose.production.yml в блоке backend на "build: ./backend/" и блоках frontend и gateway аналогично
-Заустите docker на вашем устройстве и запустите файл docker-compose.production.yml командой:
+Клонировать репозиторий:
+
 ```
-docker compose -f docker-compose.production.yml up
+git clone git@github.com:wtfucka/foodgram-project-react.git
 ```
-Выполните миграции и загрузку необходимых данных из scv файлов командами:
+
+Перейти в него в командной строке:
+
 ```
-docker compose -f docker-compose.production.yml exec backend python manage.py migrate
+cd foodgram-project-react
 ```
+
+Обязательно создать файл `.env` и указать секреты. 
+Если работа ведется в терминале, то сделать это можно через командую строку, например, через `nano`:
+
 ```
-docker compose -f docker-compose.production.yml exec backend python manage.py load ingredients
+nano .env
 ```
+Если работа ведется через IDE, то можно внести изменения как в самом файле `.env`, так и в файле `settings.py`, который находится в папке `./backend/foodgram_backend/`.
+
+Запустить сборку проекта Через docker compose можно через команду:
+
 ```
-docker compose -f docker-compose.production.yml exec backend python manage.py load tags
+docker compose up
 ```
-Соберите коллекцию бэкенд статики командой:
-```
-docker compose -f docker-compose.production.yml exec backend python manage.py collectstatic
-```
+
+Если запуск не происходит по причине недостаточности прав, то в начале команды нужно добавить `sudo` (при наличии такого доступа).
+
+## Ссылки
+- Локальные эндпоинты проекта:
+    - [Главная страница](http://localhost:8000/)
+    - [Админ-зона](http://localhost:8000/admin/)
+    - [API](http://localhost:8000/api/)

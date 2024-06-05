@@ -5,36 +5,36 @@ volumes:
 
 services:
   db:
-    image: postgres:13.0-alpine
+    image: postgres:16
     volumes:
       - pg_data:/var/lib/postgresql/data/
     env_file:
       - .env
 
   backend:
-    image: nikitapetrovich1/foodgram_backend
+    image: wtfucka/foodgram_backend
     restart: always
     volumes:
-      - static_value:/app/backend_static/
-      - media_value:/app/backend_media/
+      - static_value:/app/foodgram_static/
+      - media_value:/app/foodgram_media/
     depends_on:
       - db
     env_file:
       - .env
 
   frontend:
-    image: nikitapetrovich1/foodgram_frontend
+    image: wtfucka/foodgram_frontend
     volumes:
       - ./frontend/:/app/result_build/
 
   gateway:
-    image: nikitapetrovich1/foodgram_gateway
+    image: wtfucka/foodgram_gateway
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf
       - ./frontend/build:/usr/share/nginx/html/
       - ./docs/:/usr/share/nginx/html/api/docs/
-      - static_value:/var/html/backend_static/
-      - media_value:/var/html/backend_media/
+      - static_value:/var/html/foodgram_static/
+      - media_value:/var/html/foodgram_media/
     depends_on:
       - backend
       - frontend
